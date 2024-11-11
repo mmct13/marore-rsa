@@ -38,3 +38,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# api
+/src/app/api/algamal
+/src/app/api/node_modules
+/src/app/api/chatlog.txt
+
