@@ -11,7 +11,7 @@ const Navbar = () => {
           <span className="ml-2 text-xl font-bold text-white">
             MARORE<span className="text-red-600">CHAT</span>
           </span>
-          <div className="ml-auto flex items-center space-x-4">
+          {/* <div className="ml-auto flex items-center space-x-4">
           <Link
               href="/algamal"
               className="text-gray-300 mr-4 hover:text-white transition-colors duration-200 font-bold"
@@ -24,7 +24,7 @@ const Navbar = () => {
             >
               Crypter avec RSA
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>

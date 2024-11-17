@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import io from "socket.io-client";
 import forge from "node-forge";
 
-const SOCKET_URL = "http://192.168.1.8:3001" || "http://localhost:3001";
+const SOCKET_URL = "http://192.168.1.9:3001" || "http://localhost:3001";
 const socket = io(SOCKET_URL);
 
 const generateRedShade = () => {
@@ -21,6 +21,7 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [privateKey, setPrivateKey] = useState(null);
+  const [publicKey, setPublicKey] = useState(null);
   const [isUsernameSet, setIsUsernameSet] = useState(false);
   const [error, setError] = useState(null);
   const [connectedUsers, setConnectedUsers] = useState(new Map());
@@ -59,16 +60,19 @@ export default function Chat() {
   );
 
   useEffect(() => {
-    const handleKeys = async ({ privateKey: pemKey }) => {
+    const handleKeys = async ({ publicKey: pemPublicKey, privateKey: pemPrivateKey }) => {
       try {
-        const cryptoKey = importPrivateKey(pemKey);
-        if (cryptoKey) {
-          console.log("Clé privée importée avec succès");
-          setPrivateKey(cryptoKey);
+        const privateCryptoKey = importPrivateKey(pemPrivateKey);
+        if (privateCryptoKey) {
+          setPrivateKey(privateCryptoKey); // Set private key
         }
+
+        const publicKey = forge.pki.publicKeyFromPem(pemPublicKey); // Import the public key
+        setPublicKey(publicKey); // Store the public key
+        console.log("Clé publique reçue et stockée avec succès");
       } catch (error) {
-        console.error("Erreur lors de l'importation de la clé:", error);
-        setError("Impossible d'importer la clé privée");
+        console.error("Erreur lors de l'importation des clés:", error);
+        setError("Impossible d'importer les clés");
       }
     };
 
