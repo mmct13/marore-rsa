@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import io from "socket.io-client";
 import forge from "node-forge";
 
-const SOCKET_URL = "http://192.168.1.8:3001" || "http://localhost:3001";
+const SOCKET_URL = "http://192.168.1.6:3001" || "http://localhost:3001";
 const socket = io(SOCKET_URL);
 
 const generateRedShade = () => {
